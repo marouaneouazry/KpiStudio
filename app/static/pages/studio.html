@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantis KPI Studio — Importation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-card">
+    <div id="toast" class="toast">
+      <i class="ti ti-info-circle"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- Application Shared Header -->
+    <header class="app-header">
+      <div class="title-group">
+        <div class="icon-badge"><i class="ti ti-chart-bar"></i></div>
+        <div>
+          <h1>Mantis KPI Studio</h1>
+          <p id="header-subtitle">Étape 1 sur 2 - Importation</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="user-badge" id="user-badge">
+          <i class="ti ti-user-circle" style="font-size: 18px; color: var(--primary);"></i>
+          <span id="user-display-name">Utilisateur</span>
+          <button id="btn-logout" title="Déconnexion" style="background: none; border: none; cursor: pointer; color: var(--danger-text, #ef4444); display: flex; align-items: center; padding: 2px; margin-left: 4px;">
+            <i class="ti ti-logout" style="font-size: 16px;"></i>
+          </button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Basculer le mode sombre">
+          <i class="ti ti-moon" id="theme-icon"></i>
+        </button>
+        <div class="stepper">
+          <div class="step-dot active" id="dot-1" title="1. Importation"></div>
+          <div class="step-dot" id="dot-2" title="2. Paramètres"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <!-- STEP 1: IMPORT FILE ONLY -->
+      <div class="step-view active" id="step-1">
+        <div class="step-title"><i class="ti ti-file-upload"></i> Importer le fichier Mantis</div>
+
+        <div class="upload-zone" id="upload-zone">
+          <i class="ti ti-cloud-upload" id="upload-icon" style="font-size: 32px; color: var(--primary);"></i>
+          <div>
+            <p style="font-size: 14px; font-weight: 600;" id="file-name">Déposez votre fichier Excel ici ou <span id="browse-trigger" style="color:var(--primary); cursor:pointer; text-decoration:underline;">Parcourir</span></p>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" id="upload-subtext">Formats acceptés : .xlsm, .xlsx (Feuille RUN+MON)</p>
+          </div>
+          <input type="file" id="file-input" accept=".xlsx, .xlsm" style="display:none;" />
+        </div>
+
+        <!-- Selected File Active Banner -->
+        <div id="file-selected-banner" style="display:none; align-items:center; justify-content:space-between; background:var(--surface-subtle); border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 14px;">
+          <span style="font-size:13px; font-weight:600; color:var(--accent-text); display:flex; align-items:center; gap:8px;">
+            <i class="ti ti-circle-check-filled" style="font-size:18px;"></i> <span id="active-file-display-name">Extraction_Mantis.xlsm</span>
+          </span>
+          <button type="button" class="btn-outline" id="btn-change-file" style="width:auto; padding:4px 10px; font-size:11px;"><i class="ti ti-replace"></i> Changer de fichier</button>
+        </div>
+
+        <button class="btn btn-main" id="btn-to-step-2" disabled style="margin-top: 4px;">
+          Continuer <i class="ti ti-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- STEP 2: DATES & WORKFLOW CHOICE -->
+      <div class="step-view" id="step-2" style="display: none;">
+        <button class="btn-back" id="back-to-step-1"><i class="ti ti-arrow-left"></i> Retour</button>
+
+        <div class="step-title"><i class="ti ti-calendar"></i> Période et Choix du Workflow</div>
+
+        <div class="form-grid-2">
+          <div class="field-group">
+            <label for="start-date">Début de période</label>
+            <input type="date" id="start-date" value="2026-06-01" />
+          </div>
+          <div class="field-group">
+            <label for="end-date">Fin de période</label>
+            <input type="date" id="end-date" value="2026-06-30" />
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Que souhaitez-vous générer ?</label>
+          <div class="choice-grid" style="margin-top: 8px;">
+            <div class="choice-card" id="choose-excel">
+              <div class="icon-box"><i class="ti ti-file-analytics"></i></div>
+              <h3>Rapport Excel & KPIs</h3>
+              <p>Calcul détaillé des SLAs par collaborateurs et filtres avancés.</p>
+            </div>
+
+            <div class="choice-card" id="choose-pptx">
+              <div class="icon-box"><i class="ti ti-presentation"></i></div>
+              <h3>Dashboard PPTX</h3>
+              <p>Génération de présentations par filiales sélectionnées.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/static/js/pages/studio.js"></script>
+</body>
+</html>

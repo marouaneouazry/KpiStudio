@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantis KPI Studio — Dashboard PPTX</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-card">
+    <div id="toast" class="toast">
+      <i class="ti ti-info-circle"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- Application Shared Header -->
+    <header class="app-header">
+      <div class="title-group">
+        <div class="icon-badge"><i class="ti ti-presentation"></i></div>
+        <div>
+          <h1>Studio KPI — Dashboard PPTX</h1>
+          <p id="header-subtitle">Génération des présentations par filiale</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="user-badge" id="user-badge">
+          <i class="ti ti-user-circle" style="font-size: 18px; color: var(--primary);"></i>
+          <span id="user-display-name">Utilisateur</span>
+          <button id="btn-logout" title="Déconnexion" style="background: none; border: none; cursor: pointer; color: var(--danger-text, #ef4444); display: flex; align-items: center; padding: 2px; margin-left: 4px;">
+            <i class="ti ti-logout" style="font-size: 16px;"></i>
+          </button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Basculer le mode sombre">
+          <i class="ti ti-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <div class="step-view active" id="step-3-pptx">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button class="btn-back" id="back-to-studio"><i class="ti ti-arrow-left"></i> Changer de fichier / période</button>
+        </div>
+
+        <!-- Active Session Info Banner -->
+        <div id="session-info-banner" style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px;">
+          Fichier actif : <strong id="active-file-name" style="color: var(--primary);">Chargement...</strong>
+        </div>
+
+        <div class="panel-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-weight: 600; font-size: 12px;">Filiales cibles à générer</label>
+            <div>
+              <button class="btn-text-sm" id="btn-select-all-filiales">Tout cocher</button>
+              <button class="btn-text-sm" id="btn-deselect-all-filiales">Tout décocher</button>
+            </div>
+          </div>
+
+          <div class="checkbox-group" id="filiales-checkbox-wrapper">
+            <span style="font-size: 12px; color: var(--text-muted);">Chargement des filiales...</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar PPTX -->
+        <div class="progress-box" id="pptx-progress-box">
+          <div class="progress-info">
+            <span id="progress-status">Génération en cours...</span>
+            <span id="progress-percent" style="color: var(--primary); font-weight: 600;">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-dark" id="btn-generate-dashboard">
+          <i class="ti ti-presentation"></i> Générer & Télécharger les présentations
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/static/js/pages/dashboard.js"></script>
+</body>
+</html>

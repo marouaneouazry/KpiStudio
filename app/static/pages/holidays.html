@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mantis KPI Studio — Gestion des Jours Fériés</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+  <div class="app-card wide-view">
+
+    <div id="toast" class="toast">
+      <i class="ti ti-info-circle"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- Application Shared Header -->
+    <header class="app-header">
+
+      <div class="title-group">
+
+        <div class="icon-badge">
+          <i class="ti ti-calendar-event"></i>
+        </div>
+
+        <div>
+          <h1>Jours fériés</h1>
+
+          <p id="header-subtitle">
+            Calendrier annuel des jours fériés et ponts pour calculs KPI
+          </p>
+        </div>
+
+      </div>
+
+      <div class="header-actions">
+
+        <div class="user-badge" id="user-badge">
+
+          <i class="ti ti-user-circle" style="font-size: 18px; color: var(--primary);"></i>
+
+          <span id="user-display-name">
+            Utilisateur
+          </span>
+
+          <button id="btn-logout" title="Déconnexion" type="button"
+            style="background: none; border: none; cursor: pointer; color: var(--danger-text, #ef4444); display: flex; align-items: center; padding: 2px; margin-left: 4px;">
+            <i class="ti ti-logout" style="font-size: 16px;"></i>
+          </button>
+
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle" title="Basculer le mode sombre" type="button">
+          <i class="ti ti-moon" id="theme-icon"></i>
+        </button>
+
+      </div>
+
+    </header>
+
+    <main class="app-body">
+
+      <div class="step-view active" id="view-holidays">
+
+        <!-- Navigation -->
+        <div class="hm-top-nav">
+
+          <button class="btn-back" id="back-to-excel" type="button">
+            <i class="ti ti-arrow-left"></i>
+            Retour au Studio Excel
+          </button>
+
+        </div>
+
+        <!-- Header -->
+        <div class="hm-header">
+
+          <div class="hm-header-main">
+
+            <h1 class="hm-title">
+              Jours Fériés & Ponts
+            </h1>
+
+            <p class="hm-subtitle">
+              Gestion centralisée des calendriers annuels pour les calculs de SLA et jours ouvrés.
+            </p>
+
+          </div>
+
+          <div class="hm-year-picker">
+
+            <label for="holiday-year-select">
+              Année
+            </label>
+
+            <select id="holiday-year-select" class="hm-select"></select>
+
+            <span id="holiday-calendar-status-badge" class="badge-status"></span>
+
+          </div>
+
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="hm-toolbar">
+
+          <div class="hm-toolbar-left">
+
+            <button class="btn-action btn-outline" id="btn-create-next-year" type="button">
+              <i class="ti ti-calendar-plus"></i>
+              Créer année suivante
+            </button>
+
+            <button class="btn-action btn-outline" id="btn-add-holiday-row" type="button">
+              <i class="ti ti-plus"></i>
+              Ajouter un jour
+            </button>
+
+          </div>
+
+          <div class="hm-toolbar-right">
+
+            <!-- Enregistrer -->
+            <button class="btn-action btn-main" id="btn-save-holidays" type="button">
+              <i class="ti ti-device-floppy"></i>
+              Enregistrer
+            </button>
+
+            <!-- NOUVEAU : ANNULER -->
+            <button class="btn-action btn-outline" id="btn-cancel-holidays" type="button"
+              title="Annuler les modifications non enregistrées">
+              <i class="ti ti-arrow-back-up"></i>
+              Annuler
+            </button>
+
+            <!-- Valider -->
+            <button class="btn-action btn-accent" id="btn-validate-calendar" type="button">
+              <i class="ti ti-check"></i>
+              Valider le calendrier
+            </button>
+
+            <!-- Rouvrir -->
+            <button class="btn-action btn-warning" id="btn-reopen-calendar" type="button" style="display:none;">
+              <i class="ti ti-lock-open"></i>
+              Rouvrir
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- Main Table -->
+        <div class="hm-table-container">
+
+          <table class="hm-table">
+
+            <thead>
+              <tr>
+
+                <th style="width: 120px;">
+                  Type
+                </th>
+
+                <th style="width: 280px;">
+                  Nom / Fête
+                </th>
+
+                <th>
+                  Date(s)
+                </th>
+
+                <th style="width: 120px;">
+                  Statut
+                </th>
+
+                <th style="width: 140px; text-align: right;">
+                  Actions
+                </th>
+
+              </tr>
+            </thead>
+
+            <tbody id="holidays-table-body">
+              <!-- Dynamique -->
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Modal Add/Edit Holiday -->
+  <div id="holiday-modal" class="hm-modal-overlay" style="display: none;" role="dialog" aria-modal="true"
+    aria-labelledby="modal-holiday-title">
+
+    <div class="hm-modal-dialog">
+
+      <div class="hm-modal-header">
+
+        <h3 id="modal-holiday-title">
+          Ajouter un jour férié
+        </h3>
+
+        <button id="modal-holiday-close" class="hm-modal-close" aria-label="Fermer" type="button">
+          &times;
+        </button>
+
+      </div>
+
+      <div class="hm-modal-body">
+
+        <div class="hm-field-group">
+
+          <label for="holiday-name-input">
+            Nom de la fête / jour
+          </label>
+
+          <input type="text" id="holiday-name-input" class="hm-input" placeholder="ex: Nouvel An, Aïd Al-Fitr, Pont...">
+
+        </div>
+
+        <div class="hm-field-group">
+
+          <label for="holiday-type-select">
+            Type de jour férié
+          </label>
+
+          <select id="holiday-type-select" class="hm-select-full">
+
+            <option value="national">
+              National (Récurrent par jour/mois)
+            </option>
+
+            <option value="religious">
+              Religieux (Variable par calendrier)
+            </option>
+
+            <option value="exceptional">
+              Exceptionnel / Pont
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="hm-field-group">
+
+          <label>
+            Date(s) associée(s)
+          </label>
+
+          <div id="holiday-dates-list" class="hm-dates-builder">
+            <!-- Dynamic pickers -->
+          </div>
+
+          <button type="button" class="btn-text-sm" id="btn-add-date-picker" style="margin-top: 8px;">
+            <i class="ti ti-plus"></i>
+            Ajouter une date
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="hm-modal-footer">
+
+        <button class="btn-outline" id="btn-modal-cancel" type="button" style="width:auto;">
+          Annuler
+        </button>
+
+        <button class="btn-main" id="btn-modal-save" type="button" style="width:auto; padding:6px 16px;">
+          Enregistrer
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="/static/js/pages/holidays.js"></script>
+
+</body>
+
+</html>

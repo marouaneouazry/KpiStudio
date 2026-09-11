@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantis KPI Studio — Référentiel SLA Sous-domaines</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .sla-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .sla-stat-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: var(--transition);
+    }
+
+    .sla-stat-card:hover {
+      border-color: var(--primary);
+    }
+
+    .sla-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sla-stat-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .sla-filter-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--surface-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .sla-tab-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .sla-tab-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .sla-tab-count {
+      font-size: 11px;
+      background: var(--border);
+      padding: 1px 6px;
+      border-radius: 10px;
+      color: var(--text-main);
+    }
+
+    .sla-tab-btn.active .sla-tab-count {
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--primary);
+    }
+
+    .badge-sla {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-sla-2 {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-sla-5 {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-sla-15 {
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-table-action {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      transition: var(--transition);
+    }
+
+    .btn-table-action:hover {
+      color: var(--text-main);
+      border-color: var(--primary);
+      background: var(--surface-subtle);
+    }
+
+    .btn-table-action.delete:hover {
+      color: #ef4444;
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .sla-search-input {
+      padding: 8px 12px 8px 34px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
+      width: 100%;
+      max-width: 320px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-card wide-view">
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <i class="ti ti-info-circle"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- Application Shared Header -->
+    <header class="app-header">
+      <div class="title-group">
+        <div class="icon-badge"><i class="ti ti-adjustments"></i></div>
+        <div>
+          <h1>Mantis KPI Studio</h1>
+          <p id="header-subtitle">Référentiel SLA des Sous-domaines</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="user-badge" id="user-badge">
+          <i class="ti ti-user-circle" style="font-size: 18px; color: var(--primary);"></i>
+          <span id="user-display-name">Utilisateur</span>
+          <button id="btn-logout" title="Déconnexion" type="button"
+            style="background: none; border: none; cursor: pointer; color: var(--danger-text, #ef4444); display: flex; align-items: center; padding: 2px; margin-left: 4px;">
+            <i class="ti ti-logout" style="font-size: 16px;"></i>
+          </button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Basculer le mode sombre" type="button">
+          <i class="ti ti-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <div class="step-view active" id="view-sla">
+        <!-- Top Navigation -->
+        <div class="hm-top-nav"
+          style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <button class="btn-back" id="back-to-excel" type="button">
+            <i class="ti ti-arrow-left"></i> Retour au Studio Excel
+          </button>
+          <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+            <i class="ti ti-database"></i> Source : <code>config/sla_mapping.json</code>
+          </div>
+        </div>
+
+        <!-- Page Title & Subtitle -->
+        <div class="hm-header" style="margin-bottom: 20px;">
+          <div class="hm-header-main">
+            <h1 class="hm-title" style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0;">Gestion des SLA
+              Sous-domaines</h1>
+            <p class="hm-subtitle" style="font-size: 13px; color: var(--text-muted); margin: 0;">
+              Attribution des délais contractuels (2j, 5j, 15j) selon la colonne <strong>"Sous Domaine MON"</strong>
+              pour le calcul automatisé des dépassements.
+            </p>
+          </div>
+        </div>
+
+        <!-- Overview Stats Grid -->
+        <div class="sla-stat-grid">
+          <div class="sla-stat-card">
+            <div class="sla-stat-label"><i class="ti ti-list-check"></i> Total Référencés</div>
+            <div class="sla-stat-val" id="stat-total">0</div>
+          </div>
+          <div class="sla-stat-card">
+            <div class="sla-stat-label" style="color: #10b981;"><i class="ti ti-bolt"></i> SLA 2 Jours</div>
+            <div class="sla-stat-val" id="stat-2j" style="color: #10b981;">0</div>
+          </div>
+          <div class="sla-stat-card">
+            <div class="sla-stat-label" style="color: #3b82f6;"><i class="ti ti-clock"></i> SLA 5 Jours</div>
+            <div class="sla-stat-val" id="stat-5j" style="color: #3b82f6;">0</div>
+          </div>
+          <div class="sla-stat-card">
+            <div class="sla-stat-label" style="color: #a855f7;"><i class="ti ti-calendar-time"></i> SLA 15 Jours</div>
+            <div class="sla-stat-val" id="stat-15j" style="color: #a855f7;">0</div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="hm-toolbar"
+          style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <!-- Category Tabs -->
+            <div class="sla-filter-tabs">
+              <button class="sla-tab-btn active" data-filter="all" type="button">
+                Tous <span class="sla-tab-count" id="tab-count-all">0</span>
+              </button>
+              <button class="sla-tab-btn" data-filter="2" type="button">
+                2 jours <span class="sla-tab-count" id="tab-count-2">0</span>
+              </button>
+              <button class="sla-tab-btn" data-filter="5" type="button">
+                5 jours <span class="sla-tab-count" id="tab-count-5">0</span>
+              </button>
+              <button class="sla-tab-btn" data-filter="15" type="button">
+                15 jours <span class="sla-tab-count" id="tab-count-15">0</span>
+              </button>
+            </div>
+
+            <!-- Search input -->
+            <div style="position: relative; display: flex; align-items: center;">
+              <i class="ti ti-search"
+                style="position: absolute; left: 10px; color: var(--text-muted); font-size: 16px;"></i>
+              <input type="text" id="search-subdomain" class="sla-search-input" placeholder="Filtrer par nom..."
+                autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- Add Button -->
+          <div>
+            <button class="btn-main" id="btn-open-create-modal" type="button" style="width: auto; padding: 8px 16px;">
+              <i class="ti ti-plus"></i> Nouveau Sous-Domaine
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Subdomains Table Container -->
+        <div class="hm-table-container">
+          <table class="hm-table">
+            <thead>
+              <tr>
+                <th style="width: 50px; text-align: center;">#</th>
+                <th>Sous Domaine MON</th>
+                <th style="width: 140px;">Catégorie SLA</th>
+                <th style="width: 180px;">Délai Pris en Compte</th>
+                <th style="width: 140px; text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sla-table-body">
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">
+                  <i class="ti ti-loader ti-spin" style="font-size: 20px;"></i> Chargement des sous-domaines...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Create / Edit SLA Modal -->
+  <div id="modal-sla" class="hm-modal-overlay" style="display: none;" role="dialog" aria-modal="true">
+    <div class="hm-modal-dialog" style="max-width: 480px;">
+      <div class="hm-modal-header">
+        <h3 id="modal-sla-title" style="display: flex; align-items: center; gap: 8px;">
+          <i class="ti ti-adjustments" style="color: var(--primary);"></i>
+          <span>Nouveau Sous-Domaine SLA</span>
+        </h3>
+        <button id="btn-close-modal-sla" class="hm-modal-close" aria-label="Fermer" type="button">&times;</button>
+      </div>
+      <form id="form-sla">
+        <input type="hidden" id="sla-edit-old-name" value="" />
+        <input type="hidden" id="sla-edit-old-category" value="" />
+
+        <div class="hm-modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="field-group">
+            <label for="modal-sla-category" style="font-size: 13px; font-weight: 600;">Délai SLA (Catégorie)</label>
+            <select id="modal-sla-category" required
+              style="width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);">
+              <option value="2">2 jours (urgent / création standard)</option>
+              <option value="5" selected>5 jours (demandes / anomalies standard)</option>
+              <option value="15">15 jours (dysfonctionnements / flux complexes)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="modal-sla-name" style="font-size: 13px; font-weight: 600;">Nom du Sous-Domaine</label>
+            <input type="text" id="modal-sla-name" placeholder="ex: Transaction non débitée" required autocomplete="off"
+              style="width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);" />
+            <small style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">
+              Doit correspondre exactement à l'intitulé utilisé dans Mantis (colonne "Sous Domaine MON").
+            </small>
+          </div>
+        </div>
+        <div class="hm-modal-footer"
+          style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border);">
+          <button id="btn-cancel-modal-sla" type="button" class="btn-outline"
+            style="width: auto; padding: 6px 16px;">Annuler</button>
+          <button type="submit" id="btn-save-modal-sla" class="btn-main" style="width: auto; padding: 6px 18px;">
+            <i class="ti ti-check"></i> Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="modal-delete" class="hm-modal-overlay" style="display: none;" role="dialog" aria-modal="true">
+    <div class="hm-modal-dialog" style="max-width: 440px;">
+      <div class="hm-modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px; color: #ef4444;">
+          <i class="ti ti-alert-triangle"></i>
+          <span>Confirmer la suppression</span>
+        </h3>
+        <button id="btn-close-modal-delete" class="hm-modal-close" aria-label="Fermer" type="button">&times;</button>
+      </div>
+      <div class="hm-modal-body" style="font-size: 13px; line-height: 1.5; color: var(--text-main);">
+        <p>Voulez-vous vraiment supprimer le sous-domaine suivant du référentiel SLA ?</p>
+        <div
+          style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-weight: 600; margin: 10px 0;"
+          id="delete-target-text">
+          -
+        </div>
+        <p style="color: var(--text-muted); font-size: 12px; margin: 0;">
+          Les prochains calculs KPI ne lui attribueront plus cette catégorie de SLA.
+        </p>
+      </div>
+      <div class="hm-modal-footer"
+        style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border);">
+        <button id="btn-cancel-modal-delete" type="button" class="btn-outline"
+          style="width: auto; padding: 6px 16px;">Annuler</button>
+        <button id="btn-confirm-delete" type="button" class="btn-main"
+          style="width: auto; padding: 6px 18px; background: #ef4444; border-color: #ef4444;">
+          <i class="ti ti-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/static/js/pages/sla.js"></script>
+</body>
+
+</html>

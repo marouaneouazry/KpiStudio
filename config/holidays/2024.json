@@ -1,0 +1,135 @@
+{
+  "year": 2024,
+  "status": "validated",
+  "holidays": [
+    {
+      "id": "h_2024_1",
+      "name": "Nouvel An",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-01-01"
+      ]
+    },
+    {
+      "id": "h_2024_2",
+      "name": "Manifeste de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-01-11"
+      ]
+    },
+    {
+      "id": "h_2024_3",
+      "name": "Nouvel An Amazigh",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-01-14"
+      ]
+    },
+    {
+      "id": "h_2024_4",
+      "name": "Aïd Al-Fitr",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2024-04-09",
+        "2024-04-10"
+      ]
+    },
+    {
+      "id": "h_2024_5",
+      "name": "Fête du Travail",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-05-01"
+      ]
+    },
+    {
+      "id": "h_2024_6",
+      "name": "Aïd Al-Adha",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2024-06-17",
+        "2024-06-18"
+      ]
+    },
+    {
+      "id": "h_2024_7",
+      "name": "1er Moharram (Nouvel An Hégirien)",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2024-07-07"
+      ]
+    },
+    {
+      "id": "h_2024_8",
+      "name": "Fête du Trône",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-07-30"
+      ]
+    },
+    {
+      "id": "h_2024_9",
+      "name": "Libération de Oued Eddahab",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-08-14"
+      ]
+    },
+    {
+      "id": "h_2024_10",
+      "name": "Révolution du Roi et du Peuple",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-08-20"
+      ]
+    },
+    {
+      "id": "h_2024_11",
+      "name": "Fête de la Jeunesse",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-08-21"
+      ]
+    },
+    {
+      "id": "h_2024_12",
+      "name": "Aïd Al-Mawlid",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2024-09-16",
+        "2024-09-17"
+      ]
+    },
+    {
+      "id": "h_2024_13",
+      "name": "Marche Verte",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-11-06"
+      ]
+    },
+    {
+      "id": "h_2024_14",
+      "name": "Fête de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2024-11-18"
+      ]
+    }
+  ]
+}

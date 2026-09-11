@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantis KPI Studio — Rapport Excel & KPIs</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-card">
+    <div id="toast" class="toast">
+      <i class="ti ti-info-circle"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- Application Shared Header -->
+    <header class="app-header">
+      <div class="title-group">
+        <div class="icon-badge"><i class="ti ti-file-analytics"></i></div>
+        <div>
+          <h1>Studio KPI — Rapport Excel</h1>
+          <p id="header-subtitle">Filtres SLA & Calculs d'Équipe</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="user-badge" id="user-badge">
+          <i class="ti ti-user-circle" style="font-size: 18px; color: var(--primary);"></i>
+          <span id="user-display-name">Utilisateur</span>
+          <button id="btn-logout" title="Déconnexion" style="background: none; border: none; cursor: pointer; color: var(--danger-text, #ef4444); display: flex; align-items: center; padding: 2px; margin-left: 4px;">
+            <i class="ti ti-logout" style="font-size: 16px;"></i>
+          </button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Basculer le mode sombre">
+          <i class="ti ti-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <div class="step-view active" id="step-3-excel">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button class="btn-back" id="back-to-studio"><i class="ti ti-arrow-left"></i> Changer de fichier / période</button>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-open-sla" class="btn-nav-holidays" title="Gestion des SLA Sous-domaines">
+              <i class="ti ti-adjustments"></i> SLA Sous-domaines
+            </button>
+            <button id="btn-open-holidays" class="btn-nav-holidays" title="Gestion des jours fériés">
+              <i class="ti ti-calendar-event"></i> Jours fériés
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Session Info Banner -->
+        <div id="session-info-banner" style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px;">
+          Fichier actif : <strong id="active-file-name" style="color: var(--primary);">Chargement...</strong>
+        </div>
+
+        <div class="field-group">
+          <label for="date-column">Colonne de référence pour le filtre de date</label>
+          <select id="date-column">
+            <option value="Date de soumission">Date de soumission</option>
+            <option value="Mis à jour">Mis à jour</option>
+          </select>
+        </div>
+
+        <div class="panel-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="font-weight: 600; font-size: 12px; margin: 0;">SLA Sous-domaines</label>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-add-chip" id="btn-quick-add-sla" type="button" style="padding: 2px 8px; font-size: 11px;">
+                <i class="ti ti-plus"></i> Ajouter un sous-domaine
+              </button>
+              <button class="btn-add-chip" id="btn-manage-sla" type="button" style="padding: 2px 8px; font-size: 11px; background: transparent; border: 1px solid var(--border);">
+                <i class="ti ti-external-link"></i> Gérer
+              </button>
+            </div>
+          </div>
+          <div class="pill-group" id="sla-wrapper">
+            <button class="sla-pill active" data-sla="2">2j <span id="sla-count-2">(0)</span></button>
+            <button class="sla-pill active" data-sla="5">5j <span id="sla-count-5">(0)</span></button>
+            <button class="sla-pill active" data-sla="15">15j <span id="sla-count-15">(0)</span></button>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <label style="font-weight: 600; font-size: 12px;">Équipe d'attribution</label>
+          <div class="checkbox-group" id="collab-wrapper">
+            <button class="btn-add-chip" id="btn-add-collab"><i class="ti ti-plus"></i> Ajouter</button>
+          </div>
+        </div>
+
+        <button class="btn btn-main" id="btn-generate-excel">
+          <i class="ti ti-cpu"></i> Calculer & Afficher les résultats
+        </button>
+
+        <!-- Dynamic Results Section -->
+        <div id="results-excel-wrapper" style="display:none; flex-direction: column; gap: 12px; margin-top: 4px;">
+          <div class="step-title"><i class="ti ti-report"></i> Résultat des KPI</div>
+
+          <div class="kpi-wrapper">
+            <div class="kpi-featured">
+              <span class="kpi-title">Taux SLA AP</span>
+              <span class="kpi-value" id="kpi-sla-ap">-</span>
+            </div>
+            <div class="kpi-subgrid">
+              <div class="kpi-mini-card">
+                <div class="kpi-title">Clôturé (Dans délai)</div>
+                <div class="kpi-value" id="kpi-cloture-dans">-</div>
+              </div>
+              <div class="kpi-mini-card">
+                <div class="kpi-title">Clôturé (Hors délai)</div>
+                <div class="kpi-value" id="kpi-cloture-hors">-</div>
+              </div>
+              <div class="kpi-mini-card">
+                <div class="kpi-title">En cours (Dans délai)</div>
+                <div class="kpi-value" id="kpi-encours-dans">-</div>
+              </div>
+              <div class="kpi-mini-card">
+                <div class="kpi-title">En cours (Hors délai)</div>
+                <div class="kpi-value" id="kpi-encours-hors">-</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview Table -->
+          <div class="preview-box">
+            <div class="preview-header" id="preview-toggle">
+              <span><i class="ti ti-alert-triangle" style="color:var(--danger-text);"></i> Aperçu des tickets Hors-Délai
+                (<span id="out-of-bound-count">0</span>)</span>
+              <i class="ti ti-chevron-down" id="preview-chevron"></i>
+            </div>
+            <div class="preview-content" id="preview-content">
+              <table class="mini-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Résumé</th>
+                    <th>Attribuer à</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody id="out-of-bound-table-body">
+                  <!-- Rempli dynamiquement -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-outline" id="btn-download">
+              <i class="ti ti-download"></i> Télécharger le fichier Excel
+            </button>
+            <button class="btn-outline" id="btn-copy">
+              <i class="ti ti-copy"></i> Copier le texte
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Quick Add SLA Sub-domain Modal -->
+  <div id="modal-quick-add-sla" class="hm-modal-overlay" style="display: none;" role="dialog" aria-modal="true">
+    <div class="hm-modal-dialog" style="max-width: 480px;">
+      <div class="hm-modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <i class="ti ti-adjustments" style="color: var(--primary);"></i>
+          <span>Nouveau Sous-Domaine SLA</span>
+        </h3>
+        <button id="btn-close-quick-sla-modal" class="hm-modal-close" aria-label="Fermer" type="button">&times;</button>
+      </div>
+      <form id="form-quick-add-sla">
+        <div class="hm-modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="field-group">
+            <label for="quick-sla-category" style="font-size: 13px; font-weight: 600;">Délai SLA (Catégorie)</label>
+            <select id="quick-sla-category" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);">
+              <option value="2">2 jours (création urgente / standard)</option>
+              <option value="5" selected>5 jours (demandes courantes / anomalies)</option>
+              <option value="15">15 jours (dysfonctionnements / flux complexes)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="quick-sla-domain-name" style="font-size: 13px; font-weight: 600;">Nom du Sous-Domaine</label>
+            <input type="text" id="quick-sla-domain-name" placeholder="ex: Demande de réconciliation GAB" required autocomplete="off" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);" />
+            <small style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">
+              Doit correspondre exactement à la valeur de la colonne <strong>"Sous Domaine MON"</strong> dans Mantis.
+            </small>
+          </div>
+        </div>
+        <div class="hm-modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border);">
+          <button id="btn-cancel-quick-sla-modal" type="button" class="btn-outline" style="width: auto; padding: 6px 16px;">Annuler</button>
+          <button type="submit" id="btn-submit-quick-sla-modal" class="btn-main" style="width: auto; padding: 6px 18px;">
+            <i class="ti ti-check"></i> Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/static/js/pages/excel.js"></script>
+</body>
+</html>

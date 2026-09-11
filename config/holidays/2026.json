@@ -1,0 +1,138 @@
+{
+  "year": 2026,
+  "status": "validated",
+  "holidays": [
+    {
+      "id": "h_2026_1",
+      "name": "Nouvel An",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-01-01"
+      ]
+    },
+    {
+      "id": "h_2026_2",
+      "name": "Manifeste de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-01-11"
+      ]
+    },
+    {
+      "id": "h_2026_3",
+      "name": "Nouvel An Amazigh",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-01-14"
+      ]
+    },
+    {
+      "id": "h_2026_4",
+      "name": "Aïd Al-Fitr",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2026-03-20",
+        "2026-03-21",
+        "2026-03-22",
+        "2026-03-23"
+      ]
+    },
+    {
+      "id": "h_2026_5",
+      "name": "Fête du Travail",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-05-01"
+      ]
+    },
+    {
+      "id": "h_2026_6",
+      "name": "Aïd Al-Adha",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2026-05-27",
+        "2026-05-28",
+        "2026-05-29"
+      ]
+    },
+    {
+      "id": "h_2026_7",
+      "name": "1er Moharram (Nouvel An Hégirien)",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2026-06-17"
+      ]
+    },
+    {
+      "id": "h_2026_8",
+      "name": "Fête du Trône",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-07-30"
+      ]
+    },
+    {
+      "id": "h_2026_9",
+      "name": "Journée de Oued Ed-Dahab",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-08-14"
+      ]
+    },
+    {
+      "id": "h_2026_10",
+      "name": "Révolution du Roi et du Peuple / Fête de la Jeunesse",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-08-21"
+      ]
+    },
+    {
+      "id": "h_2026_11",
+      "name": "Aïd Al-Mawlid",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2026-08-25",
+        "2026-08-26"
+      ]
+    },
+    {
+      "id": "h_2026_12",
+      "name": "Fête de l'Unité",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "h_2026_13",
+      "name": "Marche Verte",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-11-06"
+      ]
+    },
+    {
+      "id": "h_2026_14",
+      "name": "Fête de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2026-11-18"
+      ]
+    }
+  ]
+}

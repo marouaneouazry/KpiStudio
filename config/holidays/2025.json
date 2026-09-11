@@ -1,0 +1,133 @@
+{
+  "year": 2025,
+  "status": "validated",
+  "holidays": [
+    {
+      "id": "h_2025_1",
+      "name": "Nouvel An",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-01-01"
+      ]
+    },
+    {
+      "id": "h_2025_2",
+      "name": "Manifeste de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-01-11"
+      ]
+    },
+    {
+      "id": "h_2025_3",
+      "name": "Nouvel An Amazigh",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-01-14"
+      ]
+    },
+    {
+      "id": "h_2025_4",
+      "name": "Aïd Al-Fitr",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2025-03-31",
+        "2025-04-01"
+      ]
+    },
+    {
+      "id": "h_2025_5",
+      "name": "Fête du Travail",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-05-01"
+      ]
+    },
+    {
+      "id": "h_2025_6",
+      "name": "Aïd Al-Adha",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2025-06-09"
+      ]
+    },
+    {
+      "id": "h_2025_7",
+      "name": "1er Moharram (Nouvel An Hégirien)",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2025-06-27"
+      ]
+    },
+    {
+      "id": "h_2025_8",
+      "name": "Fête du Trône",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-07-30"
+      ]
+    },
+    {
+      "id": "h_2025_9",
+      "name": "Récupération de Oued Eddahab",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-08-14"
+      ]
+    },
+    {
+      "id": "h_2025_10",
+      "name": "Révolution du Roi et du Peuple",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-08-20"
+      ]
+    },
+    {
+      "id": "h_2025_11",
+      "name": "Fête de la Jeunesse",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-08-21"
+      ]
+    },
+    {
+      "id": "h_2025_12",
+      "name": "Aïd Al-Mawlid",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2025-09-05"
+      ]
+    },
+    {
+      "id": "h_2025_13",
+      "name": "Marche Verte",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-11-06"
+      ]
+    },
+    {
+      "id": "h_2025_14",
+      "name": "Fête de l'Indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2025-11-18"
+      ]
+    }
+  ]
+}

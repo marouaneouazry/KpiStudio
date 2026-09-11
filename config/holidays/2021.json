@@ -1,0 +1,126 @@
+{
+  "year": 2021,
+  "status": "validated",
+  "holidays": [
+    {
+      "id": "h_2021_1",
+      "name": "Jour de l'an",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-01-01"
+      ]
+    },
+    {
+      "id": "h_2021_2",
+      "name": "Fête du Manifeste de l'indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-01-11"
+      ]
+    },
+    {
+      "id": "h_2021_3",
+      "name": "Fête du Travail",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-05-01"
+      ]
+    },
+    {
+      "id": "h_2021_4",
+      "name": "Aïd Al-Fitr",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2021-05-13",
+        "2021-05-14"
+      ]
+    },
+    {
+      "id": "h_2021_5",
+      "name": "Aïd Al-Adha",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2021-07-21",
+        "2021-07-22"
+      ]
+    },
+    {
+      "id": "h_2021_6",
+      "name": "Fête du Trône",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-07-30"
+      ]
+    },
+    {
+      "id": "h_2021_7",
+      "name": "1er Moharram (Nouvel An Hégirien)",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2021-08-10"
+      ]
+    },
+    {
+      "id": "h_2021_8",
+      "name": "Fête Oued Eddahab",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-08-14"
+      ]
+    },
+    {
+      "id": "h_2021_9",
+      "name": "Révolution du Roi et du Peuple",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-08-20"
+      ]
+    },
+    {
+      "id": "h_2021_10",
+      "name": "Fête de la Jeunesse",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-08-21"
+      ]
+    },
+    {
+      "id": "h_2021_11",
+      "name": "Aïd Al-Mawlid",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2021-10-19",
+        "2021-10-20"
+      ]
+    },
+    {
+      "id": "h_2021_12",
+      "name": "Fête de la Marche Verte",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-11-06"
+      ]
+    },
+    {
+      "id": "h_2021_13",
+      "name": "Fête de l'indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2021-11-18"
+      ]
+    }
+  ]
+}

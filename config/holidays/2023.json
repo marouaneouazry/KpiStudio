@@ -1,0 +1,126 @@
+{
+  "year": 2023,
+  "status": "validated",
+  "holidays": [
+    {
+      "id": "h_2023_1",
+      "name": "Jour de l'an",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-01-01"
+      ]
+    },
+    {
+      "id": "h_2023_2",
+      "name": "Fête du Manifeste de l'indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-01-11"
+      ]
+    },
+    {
+      "id": "h_2023_3",
+      "name": "Aïd Al-Fitr",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2023-04-22",
+        "2023-04-23"
+      ]
+    },
+    {
+      "id": "h_2023_4",
+      "name": "Fête du Travail",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-05-01"
+      ]
+    },
+    {
+      "id": "h_2023_5",
+      "name": "Aïd Al-Adha",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2023-06-29",
+        "2023-06-30"
+      ]
+    },
+    {
+      "id": "h_2023_6",
+      "name": "1er Moharram (Nouvel An Hégirien)",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2023-07-19"
+      ]
+    },
+    {
+      "id": "h_2023_7",
+      "name": "Fête du Trône",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-07-30"
+      ]
+    },
+    {
+      "id": "h_2023_8",
+      "name": "Fête Oued Eddahab",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-08-14"
+      ]
+    },
+    {
+      "id": "h_2023_9",
+      "name": "Révolution du Roi et du Peuple",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-08-20"
+      ]
+    },
+    {
+      "id": "h_2023_10",
+      "name": "Fête de la Jeunesse",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-08-21"
+      ]
+    },
+    {
+      "id": "h_2023_11",
+      "name": "Aïd Al-Mawlid",
+      "type": "religious",
+      "status": "validated",
+      "dates": [
+        "2023-09-28",
+        "2023-09-29"
+      ]
+    },
+    {
+      "id": "h_2023_12",
+      "name": "Fête de la Marche Verte",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-11-06"
+      ]
+    },
+    {
+      "id": "h_2023_13",
+      "name": "Fête de l'indépendance",
+      "type": "national",
+      "status": "validated",
+      "dates": [
+        "2023-11-18"
+      ]
+    }
+  ]
+}
